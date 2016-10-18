@@ -4,15 +4,15 @@
 <p>
     <b>SuperFine</b> is a meta-method that utilizes a novel two-step procedure in order to improve the accuracy and
     scalability of supertree methods. The paper <em>SuperFine: Fast and Accurate Supertree Estimation</em> (see [1])
-    presents <b>SuperFine</b>.
+    is, probably, the best introduction to <b>SuperFine</b>.
 </p>
 <p>
     To create a supertree from a set of source trees (as those provided in the <em>datasets</em> directory)
     using the Matrix Representation with Parsimony (MRP) supertree method requires <em>PAUP*</em> to be available
     on the system used to run the <code>runSuperFine.py</code> script. In a Unix-like system, to find out
-    if <em>PAUP*<em> is available one may issue one of the following commands at a command line:<br />
+    if <em>PAUP*</em> is available one may issue one of the following commands at a command line:<br />
     <code>paup</code><br />
-    <code>which paup</code>.
+    <code>which paup</code>
 </p>
 <p>
     This version of <b>SuperFine</b> was successfully tested with version <em>4a150</em> of <em>PAUP*</em>,
@@ -33,7 +33,7 @@
 <p>
     <b>Usage Examples</b><br />
     <code>python ./runSuperFine.py -h</code><br />
-    <code>python ./runSuperFine.py -r rmrp ./datasets/biological/seabirds/kennedy.source_trees_manual</code>
+    <code>python ./runSuperFine.py -r rmrp ./datasets/biological/seabirds/kennedy.source_trees_manual</code><br />
     <code>python ./runSuperFine.py -r rmrp ./datasets/simulated/100-taxa/50/sm_data.0.source_trees</code>
 </p>
 <!--------------------------------------------------------------------------------------------------------------------->
