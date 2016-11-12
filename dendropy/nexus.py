@@ -32,7 +32,10 @@ blocks, data blocks, trees blocks etc. is undefined.
 import re
 import os
 import sys
-from cStringIO import StringIO
+if sys.version_info >= (3, 0):
+    from io import StringIO
+else:
+    from cStringIO import StringIO
 
 from dendropy import datasets
 from dendropy import taxa
@@ -298,7 +301,8 @@ def parse_newick_tree_stream(stream_tokenizer,
     tree.seed_node = trees.Node()
     curr_node = tree.seed_node
     if encode_splits:
-        curr_node.edge.clade_mask = 0L
+        #curr_node.edge.clade_mask = 0L
+        curr_node.edge.clade_mask = 0
 
     while True:
         if not token or token == ';':
@@ -310,7 +314,8 @@ def parse_newick_tree_stream(stream_tokenizer,
         if token == '(':
             tmp_node = trees.Node()
             if encode_splits:
-                tmp_node.edge.clade_mask = 0L
+                #tmp_node.edge.clade_mask = 0L
+                tmp_node.edge.clade_mask = 0
             curr_node.add_child(tmp_node)
             curr_node = tmp_node
             token = stream_tokenizer.read_next_token()
@@ -322,7 +327,8 @@ def parse_newick_tree_stream(stream_tokenizer,
             if not p:
                 raise stream_tokenizer.syntax_exception('Comma found one the "outside" of a newick tree description')
             if encode_splits:
-                tmp_node.edge.clade_mask = 0L
+                #tmp_node.edge.clade_mask = 0L
+                tmp_node.edge.clade_mask = 0
                 e = curr_node.edge
                 u = e.clade_mask
                 split_map[u] = e
@@ -1411,11 +1417,12 @@ else:
             if self.die_event.isSet():
                 raise RuntimeError("exception in calling thread")
             try:
-                self.ncl_taxa_block =  tb.GetTaxaBlockPtr()
+                self.ncl_taxa_block = tb.GetTaxaBlockPtr()
                 tb_iid = self.ncl_taxa_block.GetInstanceIdentifierString()
-                self.tree_tokens =  t
+                self.tree_tokens = t
                 self.rooted_flag = rooted_flag
-            except Exception, v:
+            #except Exception, v:
+            except Exception as v:
                 _LOG.debug("NCLTreeStream Exception: %s" % str(v))
                 self.exception = v
                 self.ncl_taxa_block = None
@@ -1451,7 +1458,8 @@ else:
             try:
                 if not self.die_event.isSet():
                     self.nts.ReadFilepath(self.file_path, self.format, self.reader)
-            except Exception, v:
+            #except Exception, v:
+            except Exception as v:
                 if self.nts.exception:
                     self.exception = self.nts.exception
                 else:
@@ -1601,13 +1609,13 @@ else:
     
             if supporting_exsets:
                 s = ncl_cb.GetExcludedIndexSet()
-                print "Excluded chars =", str(nclwrapper.NxsSetReader.GetSetAsVector(s))
+                print("Excluded chars =", str(nclwrapper.NxsSetReader.GetSetAsVector(s)))
             if supporting_charset_exsets:
                 nab = m.GetNumAssumptionsBlocks(ncl_cb)
                 for k in xrange(nab):
                     a = m.GetAssumptionsBlock(ncl_cb, k)
                     cs = a.GetCharSetNames()
-                    print "CharSets have the names " , str(cs)
+                    print("CharSets have the names " , str(cs))
             return char_block
 
         def read_filepath_into_dataset(self, file_path, dataset=None):
@@ -1709,7 +1717,8 @@ else:
                         yield self.curr_tree
                 del self.curr_tree_tokens
                 del self.curr_tree
-            except Exception, v:
+            #except Exception, v:
+            except Exception as v:
                 _LOG.debug("%s" % str(v))
                 die_event.set()
                 need_tree_event.set()
