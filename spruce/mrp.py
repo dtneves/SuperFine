@@ -23,7 +23,7 @@
 ###########################################################################
 
 from newick_modified.tree import *
-from unrooted import *
+from spruce.unrooted import *
 
 import random
 import os
