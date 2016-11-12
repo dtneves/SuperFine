@@ -44,13 +44,16 @@ def count_bits(a):
     c = long(a)
     if c != a:
         raise ValueError('non-integer argument')
-    if c < 1L:
-        if c < 0L:
+    #if c < 1L:
+    if c < 1:
+        #if c < 0L:
+        if c < 0:
             raise ValueError('negative argument')
         return 0
     n_bits = 0
     while c > 0:
-        i = c & 0x0FL
+        #i = c & 0x0FL
+        i = c & 0x0F
         n_bits += __n_bits_set[i]
         c >>= 4
     return n_bits
@@ -69,7 +72,8 @@ def iter_split_indices(s, mask=-1, one_based=False, ordination_in_mask=False):
             full set of taxa).
     '''
     currBitIndex = one_based and 1 or 0
-    test_bit = 1L
+    #test_bit = 1L
+    test_bit = 1
     maskedSplitRep = s & mask
     standard_ordination = not ordination_in_mask
     while test_bit <= maskedSplitRep:
