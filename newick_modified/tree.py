@@ -6,7 +6,7 @@ Copyright (C) 2003-2008, Thomas Mailund <mailund@birc.au.dk>
 This module contains the representation of trees and a parser for
 creating trees from a Newick string or file. '''
 
-import parser
+import newick_modified.parser as parser
 
 import re
 
@@ -126,15 +126,18 @@ class Tree(object):
         sep = ''
 
         for (n, b, l) in self.edges:
-	    taxon = sep + str(n)
+            taxon = sep + str(n)
+
             if b:
                 taxon += str(b) + ''
-            if (l):
+            if l:
                 taxon += ':' + str(l)
-	    taxon = re.sub(':\s*[^\(,\)]*', "", taxon)
-	    taxon = re.sub('\)\s*[^,\(\)]*', ")", taxon)
-            sep = ','
-            tree_str += taxon
+
+        taxon = re.sub(':\s*[^\(,\)]*', "", taxon)
+        taxon = re.sub('\)\s*[^,\(\)]*', ")", taxon)
+
+        sep = ','
+        tree_str += taxon
 
         return tree_str + ')'
 
