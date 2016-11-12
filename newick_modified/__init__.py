@@ -4,7 +4,7 @@ A Python module for parsing Newick files.
 Copyright (C) 2003-2008, Thomas Mailund <mailund@birc.au.dk>
 '''
 
-# convinience inclusion of namespace...
+# convenience inclusion of namespace...
 from newick_modified.lexer import LexerError
 from newick_modified.parser import *
 from newick_modified.tree import parse_tree
