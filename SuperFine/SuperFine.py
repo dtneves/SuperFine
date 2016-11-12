@@ -81,7 +81,7 @@ def SuperFine(input, options):
         f.close()
 
     else:
-        print str(tree) + ';'
+        print(str(tree) + ';')
     #logger.printInfo()
 
 
