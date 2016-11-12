@@ -4,20 +4,20 @@
 
 ###########################################################################
 ##    Copyright 2010 Rahul Suri and Tandy Warnow.
-##    This file is part of SuperFine.
+##    This file is part of superfine.
 ##
-##    SuperFine is free software: you can redistribute it and/or modify
+##    superfine is free software: you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
 ##    the Free Software Foundation, either version 3 of the License, or
 ##    (at your option) any later version.
 ##
-##    SuperFine is distributed in the hope that it will be useful,
+##    superfine is distributed in the hope that it will be useful,
 ##    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ##    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ##    GNU General Public License for more details.
 ##
 ##    You should have received a copy of the GNU General Public License
-##    along with SuperFine.  If not, see <http://www.gnu.org/licenses/>.
+##    along with superfine.  If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
 
 import os, sys, copy
@@ -25,12 +25,12 @@ import os, sys, copy
 from newick_modified.tree import *
 from spruce.unrooted import *
 from spruce.metrics import *
-from SuperFine.adapters import *
-from SuperFine.logger import *
+from superfine.adapters import *
+from superfine.logger import *
 
 
 def SuperFine(input, options):
-    '''Main SuperFine loop.'''
+    '''Main superfine loop.'''
 
     # read input, yo
     sourceTrees = [parse_tree(sourceTree) for sourceTree in readMultipleTreesFromFile(input)]
