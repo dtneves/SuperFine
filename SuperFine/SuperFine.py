@@ -25,8 +25,8 @@ import os, sys, copy
 from newick_modified.tree import *
 from spruce.unrooted import *
 from spruce.metrics import *
-from adapters import *
-from logger import *
+from SuperFine.adapters import *
+from SuperFine.logger import *
 
 
 def SuperFine(input, options):
