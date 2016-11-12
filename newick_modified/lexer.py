@@ -8,7 +8,7 @@ rarely need to access it in your own modules and should probably only
 use the parser or tree modules, and from those most likely only the
 objects loaded into the mail package.  '''
 
-import tokens
+import newick_modified.tokens as tokens
 import re
 
 _patterns = [
@@ -77,10 +77,11 @@ class Lexer(object):
         ''' Read a token of the specified class, or raise an exception
         if the next token is not of the given class. '''
         token = self.get_next_token()
+
         if token.__class__ != token_class:
-            raise LexerError("expected "+str(token_class)+
-                             " but received "+str(token.__class__)+
-                             " at "+self.input[:10]+"..." + `token`)
+            raise LexerError("expected " + str(token_class) +
+                             " but received " + str(token.__class__) +
+                             " at " + self.input[:10] + "..." + token.__repr__())
         else:
             return token
 
