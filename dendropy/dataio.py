@@ -27,8 +27,12 @@ Convenience packaging around readers/writers.
 """
 
 import sys
-from cStringIO import StringIO
 
+import sys
+if sys.version_info >= (3, 0):
+    from io import StringIO
+else:
+    from cStringIO import StringIO
 from dendropy.datasets import Dataset
 from dendropy.trees import TreesBlock
 from dendropy import nexus
