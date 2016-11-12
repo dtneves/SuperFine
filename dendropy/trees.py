@@ -26,7 +26,11 @@
 This module handles the core definition of tree data structure class,
 as well as all the structural classes that make up a tree.
 """
-from cStringIO import StringIO
+import sys
+if sys.version_info >= (3, 0):
+    from io import StringIO
+else:
+    from cStringIO import StringIO
 
 from dendropy import base
 from dendropy import taxa
