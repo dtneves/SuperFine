@@ -40,7 +40,7 @@ class Logger(object):
         if self.resolvablePolytomies == 1:
             sys.stderr.write("1 polytomy successfully resolved.\n")
         else:
-            sys.stderr.write(`self.resolvablePolytomies` + " polytomies successfully resolved.\n")
+            sys.stderr.write(self.resolvablePolytomies.__repr__() + " polytomies successfully resolved.\n")
 
         # print info on unresolvables
         if self.unresolvablePolytomies == 0:
@@ -48,4 +48,4 @@ class Logger(object):
         elif self.unresolvablePolytomies == 1:
             sys.stderr.write("1 polytomy could *not* be resolved.\n")
         else:
-            sys.stderr.write(`self.unresolvablePolytomies` + " polytomies could *not* be resolved.\n")
+            sys.stderr.write(self.unresolvablePolytomies.__repr__() + " polytomies could *not* be resolved.\n")
