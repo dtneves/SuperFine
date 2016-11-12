@@ -117,7 +117,7 @@ def callCommand (command, input):
         return (output, err)
 
     except OSError:
-        print "Execution of %s failed" % (command)
+        print("Execution of %s failed" % (command))
         sys.exit(1)
 
 
@@ -186,3 +186,27 @@ class MRPAdapter(object):
         return(output)
 
 
+
+class MRLAdapter(object):
+    """
+    This class is an adapter for supertree construction functionality using maximum likelihood methods.
+    """
+
+    def __init__(self, sourceTrees, method="fml"):
+        self.source_trees = sourceTrees
+        self.method = method
+
+
+    def getTree(self):
+        if self.method == "rml": # RAxML
+            pass
+        else: # FastTree
+            pass
+
+        tempfile.tempdir = self.tempDirectory
+        tempfile.gettempdir()
+        f = tempfile.NamedTemporaryFile()
+        prefix = f.name
+        f.close()
+
+        return None
