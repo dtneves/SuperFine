@@ -5,7 +5,7 @@ Copyright (C) 2003-2008, Thomas Mailund <mailund@birc.au.dk>
 
 This module contains the functionality for grammatical analysis. '''
 
-import tokens
+import newick_modified.tokens as tokens
 
 class ParserError(Exception):
     '''Exception thrown if the parser encounters an error.'''
