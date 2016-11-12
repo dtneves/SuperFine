@@ -4,10 +4,10 @@ A Python module for parsing Newick files.
 Copyright (C) 2003-2008, Thomas Mailund <mailund@birc.au.dk>
 '''
 
-# convinience inclution of namespace...
-from lexer  import LexerError
-from parser import *
-from tree   import parse_tree
+# convinience inclusion of namespace...
+from newick_modified.lexer import LexerError
+from newick_modified.parser import *
+from newick_modified.tree import parse_tree
 
 if __name__ == '__main__':
     import unittest
