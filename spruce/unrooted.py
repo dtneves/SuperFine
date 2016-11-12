@@ -241,7 +241,7 @@ def findDisplayedQtrees (tree):
 
 def createQuartetTreeString (i, j, k, l):
     '''Join sibling leaves with a comma, pairs of those with a vertical bar.'''
-    quartet = [[`i`, `j`], [`k`, `l`]]
+    quartet = [[i.__repr__(), j.__repr__()], [k.__repr__(), l.__repr__()]]
     quartet[0].sort()
     quartet[1].sort()
     quartet.sort()
