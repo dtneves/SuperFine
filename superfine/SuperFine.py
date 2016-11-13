@@ -194,7 +194,8 @@ def buildRelabeling(polytomy):
     # assert: isNonLeaf(polytomy)
     children = [edge[0] for edge in polytomy.get_edges()]
 
-    for i in xrange(len(children)):
+    #for i in xrange(len(children)):
+    for i in range(len(children)):
         child = children[i]
         for identifier in child.get_leaves_identifiers():
             relabeling[identifier] = i   # maps leaf labels to integers
