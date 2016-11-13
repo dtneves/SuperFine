@@ -49,8 +49,9 @@ def reroot_on_lowest_common_index_path(t, common_mask):
         
         try:
             while True:
-                curr_n = nd_source.next()
-                if curr_n is not avoid:
+                # curr_n = nd_source.next()
+                # if curr_n is not avoid:
+                for curr_n in nd_source:
                     cm = (curr_n.edge.clade_mask & without_lowest)
                     if cm:
                         if cm == without_lowest:
@@ -59,7 +60,8 @@ def reroot_on_lowest_common_index_path(t, common_mask):
                             t.reroot_at(curr_n, splits=True, delete_deg_two=True)
                             t.to_outgroup_position(r, splits=True, delete_deg_two=True)
                             nd_source = iter(curr_n.child_nodes())
-                            avoid = r
+                            #avoid = r
+                            break
                         else:
                             return
         except StopIteration:
@@ -73,17 +75,19 @@ def reroot_on_lowest_common_index_path(t, common_mask):
     nd_source = iter(children)
     try:
         while True:
-            c = nd_source.next()
-            cm = c.edge.clade_mask
-            masked_cm = cm & common_mask
-            if masked_cm:
-                if masked_cm == without_lowest:
-                    curr_n = c
-                    children = curr_n.child_nodes()
-                    assert(len(children) > 1)
-                    nd_source = iter(children)
-                else:
-                    break
+            #c = nd_source.next()
+            for c in nd_source:
+                cm = c.edge.clade_mask
+                masked_cm = cm & common_mask
+                if masked_cm:
+                    if masked_cm == without_lowest:
+                        curr_n = c
+                        children = curr_n.child_nodes()
+                        assert(len(children) > 1)
+                        nd_source = iter(children)
+                        break
+                    else:
+                        break
     except StopIteration:
         raise AssertionError("Reaching supposedly unreachable code")
     
@@ -105,7 +109,8 @@ def reroot_on_lowest_common_index_path(t, common_mask):
 
 def _collapse_paths_not_found(f, s, other_dict=None):
     to_del = []
-    for masked_split, path in f.iteritems():
+    #for masked_split, path in f.iteritems():
+    for masked_split, path in f.items():
         if masked_split not in s:
             for edge in path:
                 if other_dict:
@@ -172,14 +177,16 @@ def add_to_scm(to_modify, to_consume, rooted=False, gordons_supertree=False):
         to_consume_root = to_consume.seed_node
         assert(to_consume_root.edge.clade_mask == to_consume_split)
 
-    for s, e in tmse.iteritems():
+    #for s, e in tmse.iteritems():
+    for s, e in tmse.items():
         s = e.clade_mask
         masked = s & leaf_intersection
         if masked and masked != leaf_intersection:
             e_list = to_mod_relevant_splits.setdefault(masked, [])
             e_list.append((s, e))
 
-    for s, e in to_consume.split_edges.iteritems():
+    #for s, e in to_consume.split_edges.iteritems():
+    for s, e in to_consume.split_edges.items():
         s = e.clade_mask
         masked = s & leaf_intersection
         if masked and masked != leaf_intersection:
@@ -190,12 +197,14 @@ def add_to_scm(to_modify, to_consume, rooted=False, gordons_supertree=False):
     #   cross the root), the clade_masks for deeper edges will be supersets
     #   of the clade_masks for shallower nodes.  Thus if we reverse sort we
     #   get the edges in the order root->tip
-    for split, path in to_mod_relevant_splits.iteritems():
+    #for split, path in to_mod_relevant_splits.iteritems():
+    for split, path in to_mod_relevant_splits.items():
         path.sort(reverse=True)
         t = [i[1] for i in path]
         del path[:]
         path.extend(t)
-    for split, path in to_consume_relevant_splits.iteritems():
+    #for split, path in to_consume_relevant_splits.iteritems():
+    for split, path in to_consume_relevant_splits.items():
         path.sort(reverse=True)
         t = [i[1] for i in path]
         del path[:]
@@ -222,14 +231,16 @@ def add_to_scm(to_modify, to_consume, rooted=False, gordons_supertree=False):
     for child in to_steal:
         to_mod_root.add_child(child)
         to_mod_root.edge.clade_mask |= child.edge.clade_mask
-        
-    for masked_split, to_consume_path in to_consume_relevant_splits.iteritems():
+
+    #for masked_split, to_consume_path in to_consume_relevant_splits.iteritems():
+    for masked_split, to_consume_path in to_consume_relevant_splits.items():
         to_mod_path = to_mod_relevant_splits.get(masked_split)
         if IS_DEBUG_LOGGING and to_mod_path is None: #to_mod_path is None:
             _LOG.debug("%s = mask" % format_split(leaf_intersection, taxa=taxa_block))
             _LOG.debug("%s = masked" % format_split(masked_split, taxa=taxa_block))
             _LOG.debug("%s = raw" % format_split(to_consume_path[-1].clade_mask, taxa=taxa_block))
-            for k, v in to_mod_relevant_splits.iteritems():
+            #for k, v in to_mod_relevant_splits.iteritems():
+            for k, v in to_mod_relevant_splits.items():
                 _LOG.debug("%s in to_mod_relevant_splits" % format_split(k, taxa=taxa_block))
                 
         assert to_mod_path is not None
@@ -312,9 +323,10 @@ def strict_consensus_merge(trees_to_merge, copy_trees=False, rooted=False, gordo
     _LOG.debug('%d Trees to merge:\n%s\n' % (nTrees, '\n'.join([str(i) for i in tree_list])))
     if nTrees < 2:
         return tree_list[0]
-    tree_iter = iter(tree_list)
-    to_modify = tree_iter.next()
-    
+    #tree_iter = iter(tree_list)
+    #to_modify = tree_iter.next()
+    to_modify = tree_list[0]
+
     if rooted:
         raise NotImplementedError("Rooted SCM is not implemented")
     else:
@@ -322,7 +334,8 @@ def strict_consensus_merge(trees_to_merge, copy_trees=False, rooted=False, gordo
     encode_splits(to_modify)
     if IS_DEBUG_LOGGING:
         assert to_modify._debug_tree_is_valid(splits=False)
-    for to_consume in tree_iter:
+    #for to_consume in tree_iter:
+    for to_consume in tree_list[1:]:
         if not rooted:
             to_consume.deroot()
         encode_splits(to_consume)
