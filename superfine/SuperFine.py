@@ -376,7 +376,9 @@ def expandTree(bipartitionsToAdd):
         sizes = {}
         for bipartition in bipartitions:
             length = len(bipartition)
-            if (sizes.has_key(length)):
+            print(dir(sizes))
+            #if (sizes.has_key(length)):
+            if (length in sizes.keys()):
                 sizes[length].append(bipartition)
             else:
                 sizes[length] = [bipartition]
