@@ -39,7 +39,7 @@ def SuperFine(input, options):
         (baseName, _, _) = input.rpartition(".")
 
     # SCM step
-    tree = mergeTrees(sourceTrees, options, input)#TODO: remove input from param list
+    tree = mergeTrees(sourceTrees, options)
 
     if options.writeData:
         f = open(baseName + ".scmTree." + options.writeData, 'w')
@@ -86,7 +86,7 @@ def SuperFine(input, options):
 
 
 
-def mergeTrees(sources, options, input):
+def mergeTrees(sources, options):
     '''
         Merge source trees using the strict consensus merger.
     '''
