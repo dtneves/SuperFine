@@ -246,7 +246,7 @@ class MatrixRepresentation(object):
         [1] http://en.wikipedia.org/wiki/FASTA_format
         """
         return "\n".join([">{0}\n{1}".format(taxon, "".join(sites))
-                          for (taxon, sites) in self.__SUPERMATRIX.iteritems()])
+                          for (taxon, sites) in self.__SUPERMATRIX.items()])
 
 
     def __nexus_format(self):
@@ -261,7 +261,7 @@ class MatrixRepresentation(object):
         """
         NEXUS = "#NEXUS\nBegin data;\nDimensions ntax={0} nchar={1};\nFormat missing={2};\nMatrix\n{3}\n;\nEnd;\n"
         MATRIX = "\n".join(["{0} {1}".format(taxon, "".join(sites))
-                            for (taxon, sites) in self.__SUPERMATRIX.iteritems()])
+                            for (taxon, sites) in self.__SUPERMATRIX.items()])
 
         return NEXUS.format(self.__number_of_species, self.__number_of_sites, self.__UNKNOWN_SITE, MATRIX)
 
@@ -280,7 +280,7 @@ class MatrixRepresentation(object):
             Systematic Biology. 1997;46,4:590-621.
         """
         MATRIX = "\n".join(["{0} {1}".format(taxon, "".join(sites))
-                            for (taxon, sites) in self.__SUPERMATRIX.iteritems()])
+                            for (taxon, sites) in self.__SUPERMATRIX.items()])
 
         return "{0} {1}\n{2}".format(self.__number_of_species, self.__number_of_sites, MATRIX)
 
