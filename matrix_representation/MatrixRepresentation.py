@@ -39,7 +39,7 @@ class MatrixRepresentation(object):
     source_trees = source_trees_from_file(filename)
     supermatrix = MatrixRepresentation(source_trees)
 
-    print(supermatrix.)
+    print(supermatrix)
     ``
 
 
