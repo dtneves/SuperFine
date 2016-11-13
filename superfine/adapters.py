@@ -18,14 +18,17 @@
 ##    along with superfine.  If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
 
-import sys, os, tempfile, random
+import sys
+import tempfile
+import random
+import os
 from subprocess import Popen, PIPE
-
 from dendropy.dataio import trees_from_newick
-import dendropy
 from dendropy.scripts.strict_consensus_merge import strict_consensus_merge
-from newick_modified.tree import parse_tree
-from spruce.mrp import *
+from spruce.mrp import matrixRepresentation, writeRatchetInputFile, getConsensusTreesFromPaupFiles, readTreesFromRatchet
+from spruce.unrooted import readNewickFile
+from newick_modified.tree import Tree, parse_tree
+from matrix_representation.MatrixRepresentation import MatrixRepresentation
 
 
 class SCMAdapter(object):
@@ -190,24 +193,65 @@ class MRPAdapter(object):
 
 class MRLAdapter(object):
     """
-    This class is an adapter for supertree construction functionality using maximum likelihood methods.
+    This class is an adapter for supertree construction functionality using maximum likelihood (ML) methods.
     """
 
-    def __init__(self, sourceTrees, method="fml"):
-        self.source_trees = sourceTrees
+    def __init__(self, source_trees, method="fml"):
+        self.source_trees = source_trees
         self.method = method
 
 
     def getTree(self):
-        if self.method == "rml": # RAxML
-            pass
-        else: # FastTree
-            pass
+        '''
+        Returns a ``newick_modified.tree.Tree`` that is computed from the source trees (``self.source_trees``).
+        Firstly, a matrix representation (i.e. a supermatrix) is computed from the source trees.
+        Then, the chosen maximum likelihood (ML) method is applied over the supermatrix to infer the tree.
 
-        tempfile.tempdir = self.tempDirectory
-        tempfile.gettempdir()
-        f = tempfile.NamedTemporaryFile()
-        prefix = f.name
-        f.close()
+        :return: A ``newick_modified.tree.Tree`` that is computed from the source trees (``self.source_trees``).
+        '''
+        supermatrix = MatrixRepresentation(self.source_trees)
 
-        return None
+        if supermatrix.number_of_sites:
+            # just to get the temporary filename
+            f = tempfile.NamedTemporaryFile()
+            filename = f.name
+            f.close()
+
+            # save the supermatrix to a temporary file
+            f = open(filename + ".mr", 'w')
+            f.write(supermatrix.phylip_format)
+            f.flush()
+            f.close()
+
+            if self.method == "rml":    # RAxML
+                ########################################################################################################
+                # TODO: Provide RAxML support                                                                          #
+                tree = Tree()   # for now a dumb tree is returned...                                                   #
+                ########################################################################################################
+            else:   # fml --> FastTree (default ML method)
+                pipe = Popen("FastTree -gtr -nosupport -nt {0}.mr > {0}.tmp".format(filename),
+                             shell=True, stdout=PIPE, stderr=PIPE)
+                (out, err) = pipe.communicate()
+                tree = readNewickFile(filename + ".tmp")
+
+            # house cleaning...
+            try:
+                os.remove(filename + ".mr")
+                filename_reduced = filename + ".mr.reduced"
+                # file can be created under certain circumstances
+                if os.path.exists(filename_reduced):
+                    os.remove(filename_reduced)
+                filename_trees = filename + ".trees"
+                if os.path.exists(filename_trees):
+                    os.remove(filename_trees)
+            except OSError:
+                sys.stderr.write("MRLAdapter --> getTree(): Something went wrong while trying to remove files.")
+
+        else:
+            tree = Tree()
+
+        tree_unweighted = tree.getUnweighted()
+        if not tree_unweighted.endswith(";"):
+            tree_unweighted += ";"
+
+        return tree_unweighted
