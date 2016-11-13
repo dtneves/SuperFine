@@ -73,7 +73,8 @@ def readMatrixFromFile (file):
     (startLine, endLine) = (None, None)
 
     # find sequence lines
-    for i in xrange(len(lines)):
+    #for i in xrange(len(lines)):
+    for i in range(len(lines)):
         if lines[i].strip().lower() == 'matrix':
             startLine = i + 1
         elif lines[i].strip() == ';':
@@ -85,7 +86,8 @@ def readMatrixFromFile (file):
             continue
         (taxon, sequence) = line.split()
         sequenceLength = len(sequence)
-        columns = [{} for i in xrange(sequenceLength)]
+        #columns = [{} for i in xrange(sequenceLength)]
+        columns = [{} for i in range(sequenceLength)]
         taxa = []
         break
 
@@ -96,11 +98,13 @@ def readMatrixFromFile (file):
         (taxon, sequence) = line.split()
         taxa.append(taxon)
 
-        zeroes = [i for i in xrange(len(sequence)) if sequence[i] == '0']
+        #zeroes = [i for i in xrange(len(sequence)) if sequence[i] == '0']
+        zeroes = [i for i in range(len(sequence)) if sequence[i] == '0']
         for index in zeroes:
             columns[index][taxon] = 0
 
-        ones = [i for i in xrange(len(sequence)) if sequence[i] == '1']
+        #ones = [i for i in xrange(len(sequence)) if sequence[i] == '1']
+        ones = [i for i in range(len(sequence)) if sequence[i] == '1']
         for index in ones:
             columns[index][taxon] = 1
 
@@ -248,7 +252,8 @@ def writeRatchetInputFile (matrix,
 
     listOfIndices = range(1, numChars + 1)
 
-    for replicate in xrange(numRatchetIterations):
+    #for replicate in xrange(numRatchetIterations):
+    for replicate in range(numRatchetIterations):
         selectedIndices = map(str, sorted(random.sample(listOfIndices, numCharactersToSelect)))
 
         replicateBlock = ['\n\t[!][!*** Replicate #%d ***]' % (replicate + 1),
@@ -341,7 +346,8 @@ def getGreedyConsensus (sourceTrees, supertrees, rooted = False):
 
     f.write("set maxtrees = %d;\n" % len(supertrees))
     f.write("Begin trees;\n")
-    for i in xrange(len(supertrees)):
+    #for i in xrange(len(supertrees)):
+    for i in range(len(supertrees)):
         f.write("\ttree %d = [&%s] %s;\n" % (i, rooting, supertrees[i]))
     f.write("end;\n\n")
 
