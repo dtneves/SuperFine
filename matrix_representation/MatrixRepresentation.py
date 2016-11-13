@@ -77,8 +77,7 @@ class MatrixRepresentation(object):
             the desirability of combining gene trees. Taxon. 1992;41:3-10.
         [2] Ragan MA. Phylogenetic inference based on matrix representation of trees. Mol Phylog Evol. 1992;1:53-58.
         [3] Price, M.N., Dehal, P.S., and Arkin, A.P. (2009) FastTree: Computing Large Minimum-Evolution Trees
-            with Profiles instead of a Distance Matrix.
-            Molecular Biology and Evolution 26:1641-1650, doi:10.1093/molbev/msp077.
+            with Profiles instead of a Distance Matrix. Molecular Biology and Evolution. 2009 26:1641-1650.
         """
         # bypass, or NOT, parameters validation
         if validate:
@@ -273,8 +272,7 @@ class MatrixRepresentation(object):
 
 
         References:
-        [1] Joseph Felsenstein (August 2003). Inferring Phylogenies.
-            Sinauer Associates. ISBN 0-87893-177-5.
+        [1] Joseph Felsenstein (August 2003). Inferring Phylogenies. Sinauer Associates. ISBN 0-87893-177-5.
         [2] http://en.wikipedia.org/wiki/PHYLIP
         [3] Maddison DR, Swofford DL, Maddison WP. NEXUS: An extensible file format for systematic information.
             Systematic Biology. 1997;46,4:590-621.
