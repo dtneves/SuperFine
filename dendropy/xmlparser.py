@@ -33,10 +33,9 @@ else:
     try:
         from elementtree import ElementTree
     except ImportError:
-        print >> sys.stderr, \
-              'XML parsing requires the ElementTrees package '\
-              '(http://effbot.org/zone/element.htm) installed ' \
-              'if using Python older than Version 2.5.0.'
+        sys.stderr.write('XML parsing requires the ElementTrees package ' \
+                         '(http://effbot.org/zone/element.htm) installed ' \
+                         'if using Python older than Version 2.5.0.')
         raise ImportError("ElementTrees package not available")
 
 from dendropy import utils
