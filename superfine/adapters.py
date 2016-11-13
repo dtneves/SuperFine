@@ -22,6 +22,7 @@ import sys, os, tempfile, random
 from subprocess import Popen, PIPE
 
 from dendropy.dataio import trees_from_newick
+import dendropy
 from dendropy.scripts.strict_consensus_merge import strict_consensus_merge
 from newick_modified.tree import parse_tree
 from spruce.mrp import *
@@ -80,7 +81,7 @@ class SCMAdapter(object):
 
         if currentMax == 3: # insufficient overlap for merger
             raise ValueError("Insufficient overlap for SCM step (%d trees left)" % numTrees)
-        else :
+        else:
             return (self.trees[index1], self.trees[index2])
 
 
