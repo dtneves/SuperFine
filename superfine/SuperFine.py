@@ -32,13 +32,13 @@ from superfine.logger import *
 def SuperFine(input, options):
     '''Main superfine loop.'''
 
-    # read input, yo
+    # Read phase/step
     sourceTrees = [parse_tree(sourceTree) for sourceTree in readMultipleTreesFromFile(input)]
 
     if options.writeData:
         (baseName, _, _) = input.rpartition(".")
 
-    # SCM step
+    # SCM phase/step
     tree = mergeTrees(sourceTrees, options)
 
     if options.writeData:
@@ -47,6 +47,8 @@ def SuperFine(input, options):
         f.write(';\n')
         f.close()
 
+    # Refinement step/phase
+    #
     # key: polytomy node, value: list of bipartitions below the polytomy to
     #   effect; each bipartition is represented as a set of polytomy subtrees,
     #   and the set of all other leaf labels in the tree implicitly represents
@@ -54,21 +56,19 @@ def SuperFine(input, options):
     bipartitionsToAdd = {}
     logger = Logger()
 
-    for polytomy in xfindPolytomies(tree):
-        if options.reconciler == "qmc":
+    if options.reconciler == "qmc":
+        for polytomy in xfindPolytomies(tree):
             (quartetTrees, delabeling) = encodeSourceTrees(polytomy, sourceTrees, logger, options)
-            if not quartetTrees:
-                continue # case: empty list of quartet trees with which to resolve polytomy
 
-            quartetTrees = selectSubset(quartetTrees, options)
-            bipartitionsToAdd[polytomy] = reconcileTrees(quartetTrees, delabeling, options)
-
-        elif options.reconciler.endswith("mrp"):
+            if quartetTrees:    # not empty list of quartet trees with which to resolve polytomy
+                quartetTrees = selectSubset(quartetTrees, options)
+                bipartitionsToAdd[polytomy] = reconcileTrees(quartetTrees, delabeling, options)
+    elif options.reconciler.endswith("mrp") or options.reconciler.endswith("fml") or options.reconciler.endswith("rml"):
+        for polytomy in xfindPolytomies(tree):
             (newSourceTrees, delabeling) = relabelSourceTrees(polytomy, sourceTrees, logger, options)
-            if not newSourceTrees:
-                continue
 
-            bipartitionsToAdd[polytomy] = reconcileTrees(newSourceTrees, delabeling, options)
+            if newSourceTrees:  # there are new source trees with which to resolve polytomy
+                bipartitionsToAdd[polytomy] = reconcileTrees(newSourceTrees, delabeling, options)
 
     # add new bipartitions to the original SCM tree
     expandTree(bipartitionsToAdd)
@@ -166,20 +166,24 @@ def selectSubset(quartetTrees, options):
 
 def reconcileTrees(trees, delabeling, options):
     '''
-        Infer a tree from a set of quartet trees using QMC or MRP 
+        Infer a tree from a set of quartet trees using QMC, MRP, or MRL
         as a black box subroutine.  Map this inferred tree to implied 
         bipartitions in the SCM merger tree using the given delabeling.
     '''
-
-    if options.reconciler == "qmc":
+    if options.reconciler == "qmc": # QMC
         quartetTrees = trees
         reconciler = QMCAdapter(quartetTrees)
-    elif options.reconciler.endswith("mrp"):
+    elif options.reconciler.endswith("mrp"): # MRP
         sourceTrees = trees
         reconciler = MRPAdapter(sourceTrees, options.numIters, options.reconciler)
+    elif options.reconciler.endswith("fml") or options.reconciler.endswith("rml"): # MRL
+        sourceTrees = trees
+        reconciler = MRLAdapter(sourceTrees, options.reconciler)
+    else: # None
+        pass
 
     tree = reconciler.getTree()
-    return(findImpliedBipartitions(tree, delabeling))
+    return findImpliedBipartitions(tree, delabeling)
 
 
 
