@@ -1615,7 +1615,7 @@ else:
                 for k in xrange(nab):
                     a = m.GetAssumptionsBlock(ncl_cb, k)
                     cs = a.GetCharSetNames()
-                    print("CharSets have the names " , str(cs))
+                    print("CharSets have the names %s" % str(cs))
             return char_block
 
         def read_filepath_into_dataset(self, file_path, dataset=None):
@@ -1638,7 +1638,7 @@ else:
                 #for k in xrange(nab):
                 #    a = m.GetAssumptionsBlock(ncl_tb, k)
                 #    cs = a.GetTaxSetNames()
-                #    print "TaxSets have the names " , str(cs)
+                #    print("TaxSets have the names %s" % str(cs))
                 num_char_blocks = m.GetNumCharactersBlocks(ncl_tb)
                 for j in xrange(num_char_blocks):
                     ncl_cb = m.GetCharactersBlock(ncl_tb, j)
