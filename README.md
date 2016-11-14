@@ -13,7 +13,7 @@
     <b>Matrix Representation with Likelihood</b> (<b>MRL</b>). To run MRP analyses, <em>PAUP*</em> has to be available
     on the system used to run the <code>runSuperFine.py</code> script. On the same way, to run MRL analyses,
     <em>FastTree</em> has also to be available on the system. In a Unix-like system, to find out if <em>PAUP*</em> and
-    <em>FastTree<em> are available one may issue one of the following commands at a command line:<br />
+    <em>FastTree</em> are available one may issue one of the following commands at a command line:<br />
     <code>paup</code><br />
     <code>which paup</code>
     <code>FastTree</code><br />
