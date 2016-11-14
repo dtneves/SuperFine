@@ -108,7 +108,6 @@ class MatrixRepresentation(object):
         # the matrix representation of the given source trees
         self.__SUPERMATRIX = self.__compute_supermatrix()
 
-
     @staticmethod
     def source_trees_from_file(filename, validate=False):
         """
@@ -141,7 +140,6 @@ class MatrixRepresentation(object):
 
         return [parse_tree(source_tree_str) for source_tree_str in source_trees_strs]
 
-
     @staticmethod
     def supported_formats():
         """
@@ -150,7 +148,6 @@ class MatrixRepresentation(object):
         :return: A list with the supported file formats.
         """
         return ["FASTA", "NEXUS", "PHYLIP", "RAW"]
-
 
     def __compute_supermatrix(self):
         """
@@ -208,7 +205,6 @@ class MatrixRepresentation(object):
 
         return supermatrix
 
-
     def __get_number_of_species(self):
         """
         Returns the number of species that the supermatrix has.
@@ -216,7 +212,6 @@ class MatrixRepresentation(object):
         :return: The number of species that the supermatrix has.
         """
         return self.__number_of_species
-
 
     def __get_number_of_sites(self):
         """
@@ -226,7 +221,6 @@ class MatrixRepresentation(object):
         """
         return self.__number_of_sites
 
-
     def __get_supermatrix(self):
         """
         Returns the supermatrix.
@@ -234,7 +228,6 @@ class MatrixRepresentation(object):
         :return: The supermatrix.
         """
         return self.__SUPERMATRIX
-
 
     def __fasta_format(self):
         """
@@ -246,7 +239,6 @@ class MatrixRepresentation(object):
         """
         return "\n".join([">{0}\n{1}".format(taxon, "".join(sites))
                           for (taxon, sites) in self.__SUPERMATRIX.items()])
-
 
     def __nexus_format(self):
         """
@@ -264,7 +256,6 @@ class MatrixRepresentation(object):
 
         return NEXUS.format(self.__number_of_species, self.__number_of_sites, self.__UNKNOWN_SITE, MATRIX)
 
-
     def __phylip_format(self):
         """
         Returns the supermatrix represented in PHYLIP (sequential) format [1][2].
@@ -281,7 +272,6 @@ class MatrixRepresentation(object):
                             for (taxon, sites) in self.__SUPERMATRIX.items()])
 
         return "{0} {1}\n{2}".format(self.__number_of_species, self.__number_of_sites, MATRIX)
-
 
     def __raw_format(self):
         """
@@ -305,7 +295,6 @@ class MatrixRepresentation(object):
         return "".join(["{};{}\n".format(species, "".join(self.matrix[species]))
                         for species in sorted(self.matrix.keys())])
 
-
     def to_string(self, supported_format="RAW"):
         """
         Returns a string representation of the supermatrix.
@@ -323,7 +312,6 @@ class MatrixRepresentation(object):
         else:
             return self.raw_format
 
-
     def __str__(self):
         """
         A string representation of the calling instance.
@@ -334,7 +322,6 @@ class MatrixRepresentation(object):
         """
         #return super.__str__(self)
         return self.to_string()
-
 
     def write_supermatrix_to_file(self, filename, supported_format="RAW", validate=False):
         """
@@ -376,7 +363,6 @@ class MatrixRepresentation(object):
         f = open(filename, 'w')
         f.write(self.to_string(supported_format))
         f.close()
-
 
     number_of_species = property(__get_number_of_species, None, None,
                                 "Returns the number of species that the supermatrix has.")
