@@ -10,11 +10,11 @@
     SuperFine allows to create supertrees from source trees, as those provided in the <em>datasets</em> directory.
     There are two main methods, from which one can choose, to compute a supertree, those are:
     <ul>
-        <li><b>Matrix Representation with Parsimony</b> (<b>MRP</b>); and</li>
-        <li><b>Matrix Representation with Likelihood</b> (<b>MRL</b>)</li>.
+        <li>Matrix Representation with Parsimony (<b>MRP</b>); and</li>
+        <li>Matrix Representation with Likelihood (<b>MRL</b>).</li>
     </ul>
-    To run MRP analyses, <em>PAUP*</em> has to be available
-    on the system used to run the <code>runSuperFine.py</code> script. On the same way, to run MRL analyses,
+    To run <b>MRP</b> analyses, <em>PAUP*</em> has to be available
+    on the system used to run the <code>runSuperFine.py</code> script. On the same way, to run <b>MRL</b> analyses,
     <em>FastTree</em> has also to be available on the system. In a Unix-like system, to find out if <em>PAUP*</em> and
     <em>FastTree</em> are available one may issue one of the following commands at a command line:
     <ul>
