@@ -4,21 +4,30 @@
 
 ###########################################################################
 ##    Copyright 2010 Rahul Suri and Tandy Warnow.
-##    This file is part of superfine.
+##    This file is part of SuperFine.
 ##
-##    superfine is free software: you can redistribute it and/or modify
+##    SuperFine is free software: you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
 ##    the Free Software Foundation, either version 3 of the License, or
 ##    (at your option) any later version.
 ##
-##    superfine is distributed in the hope that it will be useful,
+##    SuperFine is distributed in the hope that it will be useful,
 ##    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ##    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ##    GNU General Public License for more details.
 ##
 ##    You should have received a copy of the GNU General Public License
-##    along with superfine.  If not, see <http://www.gnu.org/licenses/>.
+##    along with SuperFine.  If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
+
+########################################################################################################################
+#   Copyright 2016 Diogo Telmo Neves and Tandy Warnow.                                                                 #
+#   This file is part of SuperFine and was adapted from the baseline implementation (see above).                       #
+#                                                                                                                      #
+#   Besides some refactoring, features to support running maximum likelihood (ML) analyses were added.                 #
+#                                                                                                                      #
+#   The license is exactly the same of the baseline implementation (see above).                                        #
+########################################################################################################################
 
 import os, sys, copy
 
@@ -30,7 +39,7 @@ from superfine.logger import *
 
 
 def SuperFine(input, options):
-    '''Main superfine loop.'''
+    """Main SuperFine loop."""
 
     # Read phase/step
     sourceTrees = [parse_tree(sourceTree) for sourceTree in readMultipleTreesFromFile(input)]
@@ -92,7 +101,7 @@ def mergeTrees(sources, options):
     '''
     sourceTrees = copy.deepcopy(sources)
     scm = SCMAdapter(sourceTrees, "")
-    mergerTree = addDegreeInfo(scm.getTree())
+    mergerTree = addDegreeInfo(scm.get_tree())
 
     return (mergerTree)
 
@@ -182,7 +191,7 @@ def reconcileTrees(trees, delabeling, options):
     else: # None
         pass
 
-    tree = reconciler.getTree()
+    tree = reconciler.get_tree()
     return findImpliedBipartitions(tree, delabeling)
 
 
