@@ -2,25 +2,25 @@
 
 ###########################################################################
 ##    Copyright 2010 Rahul Suri and Tandy Warnow.
-##    This file is part of superfine.
+##    This file is part of SuperFine.
 ##
-##    superfine is free software: you can redistribute it and/or modify
+##    SuperFine is free software: you can redistribute it and/or modify
 ##    it under the terms of the GNU General Public License as published by
 ##    the Free Software Foundation, either version 3 of the License, or
 ##    (at your option) any later version.
 ##
-##    superfine is distributed in the hope that it will be useful,
+##    SuperFine is distributed in the hope that it will be useful,
 ##    but WITHOUT ANY WARRANTY; without even the implied warranty of
 ##    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 ##    GNU General Public License for more details.
 ##
 ##    You should have received a copy of the GNU General Public License
-##    along with superfine.  If not, see <http://www.gnu.org/licenses/>.
+##    along with SuperFine.  If not, see <http://www.gnu.org/licenses/>.
 ###########################################################################
 
 ########################################################################################################################
 #   Copyright 2016 Diogo Telmo Neves and Tandy Warnow.                                                                 #
-#   This file is part of superfine and was adapted from the baseline implementation (see above).                       #
+#   This file is part of SuperFine and was adapted from the baseline implementation (see above).                       #
 #                                                                                                                      #
 #   Besides some refactoring, features to support running maximum likelihood (ML) analyses were added.                 #
 #                                                                                                                      #
@@ -31,15 +31,15 @@ from optparse import OptionParser, OptionGroup
 from superfine.SuperFine import SuperFine
 
 
-def parseOptions (commandLine = None):
-    '''Parse command line for options'''
+def parse_options(command_line=None):
+    """Parse command line for options"""
 
     desc = "This script runs the superfine algorithm on a set of input trees given in a file, in Newick format."
 
-    parser = OptionParser(usage = "usage: %prog [options] input_trees_file > output",
-                          version = "%prog 1.0", description = desc)
+    parser = OptionParser(usage="usage: %prog [options] input_trees_file > output",
+                          version="%prog 1.0", description=desc)
 
-    parser.set_defaults(reconciler = "qmc", numIters = 100, writeData = None)
+    parser.set_defaults(reconciler="qmc", numIters=100, writeData=None)
 
     group4InfoString = "These options enable selection of the supertree algorithm " \
                        "to be used as a subroutine within superfine for resolving polytomies.  " \
@@ -65,14 +65,14 @@ def parseOptions (commandLine = None):
                                  "file, and the specified suffix is appended to", 
                                  "each one's name."])
     group5 = OptionGroup(parser, "Data Output Options".upper(), group5InfoString)
-    group5.add_option("-w", "--write", dest = "writeData", metavar = "SUFFIX",
-                      help = "write merger tree and final tree to disk in same "
-                             "directory as source trees file, append .SUFFIX "
-                             "to written file names [default: %default]")
+    group5.add_option("-w", "--write", dest="writeData", metavar="SUFFIX",
+                      help="write merger tree and final tree to disk in same "
+                           "directory as source trees file, append .SUFFIX "
+                           "to written file names [default: %default]")
     parser.add_option_group(group5)
 
-    if commandLine:
-         (options, args) = parser.parse_args(commandLine)
+    if command_line:
+         (options, args) = parser.parse_args(command_line)
     else:
         (options, args) = parser.parse_args()
 
@@ -86,5 +86,6 @@ def parseOptions (commandLine = None):
 
 # MAIN
 if __name__ == '__main__':
-    (input, options) = parseOptions()
+    (input, options) = parse_options()
+
     SuperFine(input, options)
