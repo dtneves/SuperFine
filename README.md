@@ -9,22 +9,27 @@
 <p>
     SuperFine allows to create supertrees from source trees, as those provided in the <em>datasets</em> directory.
     There are two main methods, from which one can choose, to compute a supertree, those are:
-    <b>Matrix Representation with Parsimony</b> (<b>MRP</b>); and
-    <b>Matrix Representation with Likelihood</b> (<b>MRL</b>). To run MRP analyses, <em>PAUP*</em> has to be available
+    <ul>
+        <li><b>Matrix Representation with Parsimony</b> (<b>MRP</b>); and</li>
+        <li><b>Matrix Representation with Likelihood</b> (<b>MRL</b>)</li>.
+    </ul>
+    To run MRP analyses, <em>PAUP*</em> has to be available
     on the system used to run the <code>runSuperFine.py</code> script. On the same way, to run MRL analyses,
     <em>FastTree</em> has also to be available on the system. In a Unix-like system, to find out if <em>PAUP*</em> and
-    <em>FastTree</em> are available one may issue one of the following commands at a command line:<br />
-    <code>paup</code><br />
-    <code>which paup</code><br />
-    <code>FastTree</code><br />
-    <code>which FastTree</code><br />
+    <em>FastTree</em> are available one may issue one of the following commands at a command line:
+    <ul>
+        <li><code>paup</code></li>
+        <li><code>which paup</code></li>
+        <li><code>FastTree</code></li>
+        <li><code>which FastTree</code></li>
+    </ul>
     Obviously, these binaries may exist but with different names (e.g. <em>PAUP</em>, <em>fasttree</em>, and so forth).
     Thus, is up to the user find these tools or, alternatively, make them available.
     However, one should notice that <b>SuperFine</b> expects <code>paup</code> and
     <code>FastTree</code> (case-sensitive!) binaries to be available.
 </p>
 <p>
-    At the moment of this writing (14.November.2016), this version of <b>SuperFine</b> was successfully tested with:
+    At the moment of this writing, 14.November.2016, this version of <b>SuperFine</b> was successfully tested with:
     <ul>
         <li>Python versions 2.7 and 3;</li>
         <li>PAUP* version 4a150; and</li>
@@ -38,7 +43,7 @@
     <em>FastTree</em> to be available system-wide.
 </p>
 <p>
-    If you use SuperFine in your research we would appreciate if you cite [1],
+    If you use <b>SuperFine</b> in your research we would appreciate if you cite [1],
     you may also be interested in [2][3][4].
 </p>
 <!--------------------------------------------------------------------------------------------------------------------->
