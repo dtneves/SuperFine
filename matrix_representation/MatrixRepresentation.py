@@ -172,7 +172,8 @@ class MatrixRepresentation(object):
         # warm-up...
         for source_tree in self.__SOURCE_TREES:
             # full set of taxa
-            taxa |= set([taxon for taxon in source_tree.leaves_identifiers])
+            #taxa |= set([taxon for taxon in source_tree.leaves_identifiers])
+            taxa |= set(source_tree.leaves_identifiers)
             bipartitions_list = []
             bipartitions_list_append = bipartitions_list.append
 
@@ -192,7 +193,8 @@ class MatrixRepresentation(object):
 
             for bipartitions_list in bipartitions_lists:
                 for bipartitions in bipartitions_list:
-                    # this should NEVER happen, however it has to be at head
+                    # depending on the source trees, some taxon, of the full set of taxa,
+                    # may not be found in any bipartition of one or more source trees
                     if (taxon in bipartitions[0] and taxon in bipartitions[1]) \
                             or ((taxon not in bipartitions[0]) and (taxon not in bipartitions[1])):
                         sites_append(self.__UNKNOWN_SITE)
@@ -391,5 +393,5 @@ if __name__ == "__main__":
     #print(supermatrix.phylip_format)
     #print(supermatrix.nexus_format)
     #print(supermatrix.raw_format)
-    print(supermatrix)
-    #supermatrix.write_supermatrix_to_file("out.txt", supported_format=supported_formats[-1])
+    #print(supermatrix)
+    supermatrix.write_supermatrix_to_file("out.mr", supported_format=supported_formats[2])
