@@ -15,7 +15,7 @@
     <em>FastTree</em> has also to be available on the system. In a Unix-like system, to find out if <em>PAUP*</em> and
     <em>FastTree</em> are available one may issue one of the following commands at a command line:<br />
     <code>paup</code><br />
-    <code>which paup</code>
+    <code>which paup</code><br />
     <code>FastTree</code><br />
     <code>which FastTree</code><br />
     Obviously, these binaries may exist but with different names (e.g. <em>PAUP</em>, <em>fasttree</em>, and so forth).
