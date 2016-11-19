@@ -239,7 +239,7 @@ class MRLAdapter(object):
                 tree = Tree()   # for now a dumb tree is returned...                                                   #
                 ########################################################################################################
             else:   # fml --> FastTree (default ML method)
-                pipe = Popen("FastTree -gtr -nosupport -nt {0}.mr > {0}.tmp".format(filename),
+                pipe = Popen("FastTree -gtr -nosupport -nt < {0}.mr > {0}.tmp".format(filename),
                              shell=True, stdout=PIPE, stderr=PIPE)
                 (out, err) = pipe.communicate()
                 tree = readNewickFile(filename + ".tmp")
